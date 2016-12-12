@@ -2,6 +2,8 @@
 
 ## Braindump
 
+Application planning :)
+
 ### Application Structure
 
 - app
@@ -37,3 +39,10 @@
  - router
 - controller
 - view
+
+# extra points
+
+- git flow - tick
+- flexible configuration (.env + config) - tick
+- unit testing - tick
+- automation - travis/scrutinizer/heroku - tick
