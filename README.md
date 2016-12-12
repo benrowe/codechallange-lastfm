@@ -22,7 +22,7 @@ Application planning :)
 
 ### Process
 
-- build directory structure
+- build directory structure - done
 - setup travis/scrutinizer
 - setup heroku
 - build basic tests for required components
