@@ -1,0 +1,15 @@
+{
+    "name": "benrowe/app-luxgroup",
+    "description": "Coding challanage application for luxgroup",
+    "type": "application",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben Rowe",
+            "email": "ben.rowe.83@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+}
