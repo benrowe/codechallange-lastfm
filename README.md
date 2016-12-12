@@ -1,5 +1,11 @@
 # Lastfm Coding Challange
 
+## How to setup
+
+- Copy the .env.example to .env and update the variables within
+- point all http requests to public/index.php?r=*
+
+
 ## Braindump
 
 Application planning :)
