@@ -1,5 +1,11 @@
 # Lastfm Coding Challange
 
+## How to setup
+
+- Copy the .env.example to .env and update the variables within
+- point all http requests to public/index.php
+
+
 ## Braindump
 
 Application planning :)
@@ -16,7 +22,7 @@ Application planning :)
 
 ### Process
 
-- build directory structure
+- build directory structure - done
 - setup travis/scrutinizer
 - setup heroku
 - build basic tests for required components
