@@ -27,6 +27,11 @@
     },
     "require": {
         "vlucas/phpdotenv": "^2.4",
-        "mrjgreen/config": "^2.0"
+        "mrjgreen/config": "^2.0",
+        "league/container": "^2.2",
+        "league/route": "^2.0",
+        "symfony/http-foundation": "^3.2",
+        "symfony/psr-http-message-bridge": "^1.0",
+        "zendframework/zend-diactoros": "^1.3"
     }
 }
