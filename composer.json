@@ -24,5 +24,9 @@
         "psr-4": {
             "Tests\\": "tests/"
         }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^2.4",
+        "mrjgreen/config": "^2.0"
     }
 }
