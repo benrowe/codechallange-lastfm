@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\Support\Container;
 use League\Container\Container as DiContainer;
+use PHPUnit_Framework_TestCase;
 use Tests\Fake\DependencyTest;
 
 /**
@@ -11,7 +12,7 @@ use Tests\Fake\DependencyTest;
  *
  * @package Tests
  */
-class ContainerTest extends \PHPUnit_Framework_TestCase
+class ContainerTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Container
