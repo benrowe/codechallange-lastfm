@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d27c80fee033a458b7d86bc327d3e637",
-    "content-hash": "1d64d060906424a40ca8e45f678b890e",
+    "hash": "e1d25b97da917dcda19199196028772d",
+    "content-hash": "39c6c8921d67b5056e756a3f05804559",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -781,6 +781,50 @@
                 "instantiate"
             ],
             "time": "2015-06-14 21:17:01"
+        },
+        {
+            "name": "heroku/heroku-buildpack-php",
+            "version": "v117",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/heroku/heroku-buildpack-php.git",
+                "reference": "960199a978308c75926fd9bb4775f7113bf1d777"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/960199a978308c75926fd9bb4775f7113bf1d777",
+                "reference": "960199a978308c75926fd9bb4775f7113bf1d777",
+                "shasum": ""
+            },
+            "bin": [
+                "bin/heroku-hhvm-apache2",
+                "bin/heroku-hhvm-nginx",
+                "bin/heroku-php-apache2",
+                "bin/heroku-php-nginx"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Zuelke",
+                    "email": "dz@heroku.com"
+                }
+            ],
+            "description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP/HHVM and Apache2/Nginx as on Heroku",
+            "homepage": "https://github.com/heroku/heroku-buildpack-php",
+            "keywords": [
+                "apache",
+                "apache2",
+                "foreman",
+                "heroku",
+                "hhvm",
+                "nginx",
+                "php"
+            ],
+            "time": "2016-12-09 19:37:38"
         },
         {
             "name": "myclabs/deep-copy",
