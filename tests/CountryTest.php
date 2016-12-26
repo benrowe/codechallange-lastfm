@@ -10,8 +10,8 @@ class CountryTest extends \PHPUnit_Framework_TestCase
     {
         $result = Country::all();
         $this->assertTrue(count($result) > 0);
-        $this->assertInstanceOf(Country::class, $result['au']);
-        $this->assertSame('Australia', $result['au']->name);
+        $this->assertInstanceOf(Country::class, $result['AU']);
+        $this->assertSame('Australia', $result['AU']->name);
 
     }
 
