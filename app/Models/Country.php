@@ -4,6 +4,7 @@ namespace App\Models;
 
 class Country
 {
+    const DATA_FILE = 'resources/data/countries.json';
     /**
      * Raw country data
      *
@@ -63,7 +64,7 @@ class Country
     private static function loadRawData()
     {
         if (!is_array(self::$data)) {
-            $path = \App\path('resources/data/countries.json');
+            $path = \App\path(self::DATA_FILE);
             $content = file_get_contents($path);
             self::$data = json_decode($content, true);
         }
