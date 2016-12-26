@@ -39,7 +39,7 @@ class Country
     public static function all()
     {
         $result = [];
-        foreach (self::$data as $key => $country) {
+        foreach (self::loadRawData() as $key => $country) {
             $result[$key] = new self($country);
         }
         return $result;
@@ -52,8 +52,10 @@ class Country
      */
     public static function findById($ref)
     {
-        if (isset(self::$data[$ref])) {
-            return new self(self::$data[$ref]);
+        $data = self::loadRawData();
+        $ref = strtoupper($ref);
+        if (isset($data[$ref])) {
+            return new self($data[$ref]);
         }
         return null;
     }
