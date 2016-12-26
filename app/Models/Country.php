@@ -11,12 +11,7 @@ class Country
      * @todo provide full list of countries
      * @var array
      */
-    private static $data = [
-        'au' => [
-            'id' => 'au',
-            'name' => 'Australia'
-        ]
-    ];
+    private static $data;
 
     private $attributes = [];
 
@@ -60,5 +55,18 @@ class Country
             return new self(self::$data[$ref]);
         }
         return null;
+    }
+
+    /**
+     * Load and return the raw country data
+     */
+    private static function loadRawData()
+    {
+        if (!is_array(self::$data)) {
+            $path = \App\path('resources/data/countries.json');
+            $content = file_get_contents($path);
+            self::$data = json_decode($content, true);
+        }
+        return self::$data;
     }
 }
