@@ -4,7 +4,7 @@ namespace App\Models\Forms;
 
 use App\Models\AbstractModel;
 use App\Models\Country;
-use App\Services\LasfFm\Client;
+use App\Services\LastFm\Client;
 
 /**
  *
@@ -27,8 +27,9 @@ class SearchForm extends AbstractModel
      */
     public function results()
     {
-        $country = $this->country;
-        $client = $this->getLastFmApi();
+        $client  = $this->getLastFmApi();
+
+        return $client->geo->topArtists($this->country()->name);
     }
 
     /**
@@ -62,7 +63,7 @@ class SearchForm extends AbstractModel
      * @return Client
      * @todo move this app container injection
      */
-    public function getLastFmApi()
+    public function getLastFmApi(): Client
     {
         return \App\app()->get('lastfm');
     }
