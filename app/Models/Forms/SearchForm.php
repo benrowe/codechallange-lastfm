@@ -17,7 +17,7 @@ class SearchForm extends AbstractModel
      * Default attributes
      * @var array
      */
-    protected $attributes = ['country' => 'au'];
+    protected $attributes = ['country' => 'AU'];
 
     /**
      * Calculate the result set based on the current state of the object
