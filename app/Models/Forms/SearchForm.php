@@ -8,6 +8,8 @@ use App\Services\LasfFm\Client;
 
 /**
  *
+ * @property Country country
+ * @package App\Models
  */
 class SearchForm extends AbstractModel
 {
