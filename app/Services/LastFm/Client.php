@@ -100,14 +100,14 @@ class Client
         // handle invalid/error responses
         if ($bodyDecode === null) {
             throw new Exception("The response from LastFM can not be decoded as valid JSON");
-        } else {
-            if (isset($bodyDecode['error'])) {
-                throw new Exception(
-                    sprintf("LastFM error: %s (%s)", $bodyDecode['message'], $bodyDecode['error']),
-                    $bodyDecode['error']
-                );
-            }
         }
+        if (isset($bodyDecode['error'])) {
+            throw new Exception(
+                sprintf("LastFM error: %s (%s)", $bodyDecode['message'], $bodyDecode['error']),
+                $bodyDecode['error']
+            );
+        }
+
 
         return $bodyDecode;
     }
