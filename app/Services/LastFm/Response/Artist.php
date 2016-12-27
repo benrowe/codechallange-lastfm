@@ -26,4 +26,8 @@ class Artist extends AbstractResponse
         return null;
     }
 
+    public function topTracks():ResultSet
+    {
+        return $this->client->artist->topTracks($this->mbid);
+    }
 }
