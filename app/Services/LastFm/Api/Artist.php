@@ -30,9 +30,17 @@ class Artist implements Searchable
 
     public function search(SearchRequest $request): ResultSet
     {
-        $response = $this->client->request('artist.search', $request->toArray());
+        $response = $this->client->request(
+            'artist.search',
+            $request->toArray()
+        );
 
-        return AbstractResponse::makeResultSet($this->client, $response, ArtistResponse::class, 'results.artistmatches.artist');
+        return AbstractResponse::makeResultSet(
+            $this->client,
+            $response,
+            ArtistResponse::class,
+            'results.artistmatches.artist'
+        );
     }
 
     /**
@@ -48,7 +56,12 @@ class Artist implements Searchable
 
         try {
             $response = $this->client->request('artist.getInfo', $params);
-            return AbstractResponse::make($this->client, $response, ArtistResponse::class, 'artist');
+            return AbstractResponse::make(
+                $this->client,
+                $response,
+                ArtistResponse::class,
+                'artist'
+            );
         } catch (Exception $e) {
             if ($e->getCode() == 6) {
                 // artist not found
