@@ -53,6 +53,11 @@ class Client
         return new Artist($this);
     }
 
+    /**
+     * Get the geo api
+     *
+     * @return Geo
+     */
     public function getGeo(): Geo
     {
         return new Geo($this);
