@@ -16,7 +16,7 @@ trait TraitSupportsPagintation
         if (!isset($params['limit'])) {
             $params['limit'] = $this->client->getOption('pagination.limit', 5);
         }
-        if (!isset($params['page'])) {
+        if (!isset($params['page']) || $params['page'] < 1) {
             $params['page'] = 1;
         }
 
