@@ -14,8 +14,8 @@ use GuzzleHttp\ClientInterface;
  *
  * @package App\Services\LastFm
  * @property Artist artist
- * @property Geo geo
- * @todo create unique Exception class for these errors
+ * @property Geo    geo
+ * @todo    create unique Exception class for these errors
  */
 class Client
 {
@@ -26,6 +26,7 @@ class Client
     //properties start
     private $apiKey;
     private $apiSecret;
+    private $apiOptions = [];
 
     /**
      * @var ClientInterface
@@ -38,11 +39,41 @@ class Client
      *
      * @param string $key
      * @param string $secret
+     * @param array  $options
      */
-    public function __construct($key, $secret)
+    public function __construct($key, $secret, array $options = [])
     {
-        $this->apiKey    = $key;
-        $this->apiSecret = $secret;
+        $this->apiKey     = $key;
+        $this->apiSecret  = $secret;
+        $this->apiOptions = $options;
+    }
+
+    /**
+     * Get the api key
+     *
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * Get the api secret
+     *
+     * @return string
+     */
+    public function getApiSecret()
+    {
+        return $this->apiSecret;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->apiOptions;
     }
 
     /**
@@ -129,9 +160,9 @@ class Client
     private function buildParams($methodName, array $params = []): array
     {
         return array_merge([
-            'method' => $methodName,
+            'method'  => $methodName,
             'api_key' => $this->apiKey,
-            'format' => self::RESPONSE_FORMAT,
+            'format'  => self::RESPONSE_FORMAT,
         ], $params);
     }
 
@@ -154,6 +185,8 @@ class Client
     }
 
     /**
+     * Inject the required http client
+     *
      * @param ClientInterface $httpClient
      */
     public function setHttpClient(ClientInterface $httpClient)
