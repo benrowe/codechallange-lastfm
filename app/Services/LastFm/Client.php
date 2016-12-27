@@ -4,6 +4,7 @@ namespace App\Services\LastFm;
 
 use App\Exceptions\InvalidParamException;
 use App\Services\LastFm\Api\Artist;
+use App\Services\LastFm\Api\Geo;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 
@@ -50,6 +51,16 @@ class Client
     public function getArtist(): Artist
     {
         return new Artist($this);
+    }
+
+    /**
+     * Get the geo api
+     *
+     * @return Geo
+     */
+    public function getGeo(): Geo
+    {
+        return new Geo($this);
     }
 
     /**
