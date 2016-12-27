@@ -14,4 +14,5 @@
 @else
     Please select a country
 @endif
+    @include('partials.form', ['model' => $model])
 @endsection
