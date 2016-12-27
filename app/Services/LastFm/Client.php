@@ -14,6 +14,7 @@ use GuzzleHttp\ClientInterface;
  *
  * @package App\Services\LastFm
  * @property Artist $artist
+ * @todo create unique Exception class for these errors
  */
 class Client
 {
