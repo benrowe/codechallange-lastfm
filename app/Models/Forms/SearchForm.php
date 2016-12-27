@@ -15,6 +15,7 @@ class SearchForm extends AbstractModel
 {
     /**
      * Default attributes
+     *
      * @var array
      */
     protected $attributes = ['country' => 'AU'];
@@ -41,11 +42,17 @@ class SearchForm extends AbstractModel
         return count(array_filter($this->attributes)) > 0;
     }
 
+    /**
+     * Get the country model
+     *
+     * @return Country|null
+     */
     public function country()
     {
         if ($this->country) {
             return Country::findById($this->country);
         }
+
         return null;
     }
 
