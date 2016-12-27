@@ -22,7 +22,9 @@ $app->add('request', function () {
 $app->share('response', \Symfony\Component\HttpFoundation\Response::class);;
 $app->share('emitter', Zend\Diactoros\Response\SapiEmitter::class);
 
-$app->share('config', function() use ($app) {
+$app->share('config', function () use ($app) {
+    return new \Config\Repository(new \Config\Loader\FileLoader(\App\path('config')), getenv('APP_ENV'));
+});
 
 $app->share('view', function () use ($app) {
     return new Blade($app->get('config')->get('view.path'), $app->get('config')->get('view.cache'));
