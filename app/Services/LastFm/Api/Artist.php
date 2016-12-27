@@ -56,4 +56,19 @@ class Artist implements Searchable
             throw $e;
         }
     }
+
+    /**
+     * Build the arist api params based on the type of data being provided
+     *
+     * @param string $artistRef
+     * @return array
+     */
+    private function buildArtistParams($artistRef): array
+    {
+        if ((new Musicbrainz())->isValidId($artistRef)) {
+            return ['mbid' => $artistRef];
+        }
+
+        return ['artist' => $artistRef];
+    }
 }
