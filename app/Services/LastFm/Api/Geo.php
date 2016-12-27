@@ -12,6 +12,7 @@ use App\Services\LastFm\Response\Artist as ArtistResponse;
  */
 class Geo
 {
+    use TraitSupportsPagintation;
     /**
      * @var Client
      */
@@ -32,8 +33,11 @@ class Geo
     public function topArtists($countryCode, array $params = [])
     {
         $params = array_merge($params, ['country' => $countryCode]);
-        $response = $this->client->request('geo.gettopartists', $params);
-
-        return AbstractResponse::makeResultSet($this->client, $response, ArtistResponse::class, 'topartists.artist');
+        return $this->buildPaginationResultSet(
+            'geo.gettopartists',
+            $params,
+            ArtistResponse::class,
+            'topartists.artist'
+        );
     }
 }
