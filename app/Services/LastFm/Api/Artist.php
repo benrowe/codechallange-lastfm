@@ -16,6 +16,11 @@ use App\Services\LastFm\Response\Track;
 use App\Services\LastFm\SearchRequest;
 use App\Services\LastFm\Support\Musicbrainz;
 
+/**
+ * Artist API
+ *
+ * @package App\Services\LastFm\Api
+ */
 class Artist implements Searchable
 {
     /**
@@ -23,16 +28,29 @@ class Artist implements Searchable
      */
     private $client;
 
+    /**
+     * Artist constructor.
+     *
+     * @param Client $client
+     */
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
-    public function search(SearchRequest $request): ResultSet
+    /**
+     * Search last fm for artists based on the provided SearchRequest criteria
+     *
+     * @param SearchRequest $request
+     * @param array         $params
+     * @return ResultSet
+     */
+    public function search(SearchRequest $request, array $params = []): ResultSet
     {
+        $params   = array_merge($params, $request->toArray());
         $response = $this->client->request(
             'artist.search',
-            $request->toArray()
+            $params
         );
 
         return AbstractResponse::makeResultSet(
@@ -71,9 +89,18 @@ class Artist implements Searchable
         }
     }
 
-    public function topTracks($artistRef)
+    /**
+     * Get top tracks for specified artist
+     *
+     * @param string $artistRef either the musicbrainz id or the artist name
+     * @param array $params additional api params
+     * @return \App\Services\LastFm\Response\ResultSet|bool
+     * @throws Exception
+     */
+    public function topTracks($artistRef, array $params = [])
     {
         $params = $this->buildArtistParams($artistRef);
+        $params = array_merge($params, $params);
         try {
             $response = $this->client->request(
                 'artist.gettoptracks',
