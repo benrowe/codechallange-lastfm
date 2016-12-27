@@ -13,7 +13,8 @@ use GuzzleHttp\ClientInterface;
  * Initial entry point for making requests to LastFM
  *
  * @package App\Services\LastFm
- * @property Artist $artist
+ * @property Artist artist
+ * @property Geo geo
  * @todo create unique Exception class for these errors
  */
 class Client
