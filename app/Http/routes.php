@@ -1,12 +1,9 @@
 <?php
 
-/**
- * @var \League\Route\RouteCollection $routes
- */
-$route->addRoute('GET', '/', function() {
-    return 'asdf';
-});
+use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\DefaultController;
 
-$route->addRoute('GET', '/ajax', function() {
-    return ['foo' => 'bar'];
-});
+/**
+ * @var \League\Route\RouteCollection $route
+ */
+$route->addRoute('GET', '/', DefaultController::class.'::index');

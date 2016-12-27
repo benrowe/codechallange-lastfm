@@ -21,6 +21,11 @@ use Symfony\Component\HttpFoundation\Response;
 class Container
 {
     /**
+     * @var Container
+     */
+    private static $instance;
+
+    /**
      * @var DiContainer
      */
     private $dependency;
@@ -40,12 +45,34 @@ class Container
      */
     public function __construct(DiContainer $di, $path)
     {
-        // auto wire our calls
+        // auto wire our DI calls
         $di->delegate(
             new ReflectionContainer
         );
         $this->dependency = $di;
         $this->pathRoot = rtrim($path, '/').'/';
+
+        self::$instance = $this;
+    }
+
+    /**
+     * Get the instance of the container
+     *
+     * @return Container
+     */
+    public static function instance()
+    {
+        return self::$instance;
+    }
+
+    /**
+     * The root directory for the application
+     *
+     * @return string
+     */
+    public function root()
+    {
+       return $this->pathRoot;
     }
 
     /**
