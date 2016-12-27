@@ -4,6 +4,7 @@ namespace App\Services\LastFm;
 
 use App\Exceptions\InvalidParamException;
 use App\Services\LastFm\Api\Artist;
+use App\Services\LastFm\Api\Geo;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 
@@ -53,6 +54,16 @@ class Client
     }
 
     /**
+     * Get the geo api
+     *
+     * @return Geo
+     */
+    public function getGeo(): Geo
+    {
+        return new Geo($this);
+    }
+
+    /**
      * Magic Method __get
      * Expose API classes as properties
      *
@@ -94,14 +105,14 @@ class Client
         // handle invalid/error responses
         if ($bodyDecode === null) {
             throw new Exception("The response from LastFM can not be decoded as valid JSON");
-        } else {
-            if (isset($bodyDecode['error'])) {
-                throw new Exception(
-                    sprintf("LastFM error: %s (%s)", $bodyDecode['message'], $bodyDecode['error']),
-                    $bodyDecode['error']
-                );
-            }
         }
+        if (isset($bodyDecode['error'])) {
+            throw new Exception(
+                sprintf("LastFM error: %s (%s)", $bodyDecode['message'], $bodyDecode['error']),
+                $bodyDecode['error']
+            );
+        }
+
 
         return $bodyDecode;
     }

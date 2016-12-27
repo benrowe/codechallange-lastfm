@@ -31,6 +31,9 @@ $app->share('view', function () use ($app) {
 });
 //endregion
 
+//region general application services
+$app->add('lastfm', function () {
+    return new \App\Services\LastFm\Client(getenv('LASTFM_KEY'), getenv('LASTFM_SECRET'));
 });
 //endregion
 

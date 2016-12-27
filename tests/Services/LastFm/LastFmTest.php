@@ -32,6 +32,7 @@ class LastFmTest extends PHPUnit_Framework_TestCase
             new Response(200, [], file_get_contents(__DIR__.'/../../mocks/lastfm-search-artist')),
             new Response(200, [], file_get_contents(__DIR__.'/../../mocks/lastfm-artist')),
             new Response(200, [], file_get_contents(__DIR__.'/../../mocks/lastfm-error')),
+            new Response(200, [], file_get_contents(__DIR__.'/../../mocks/lastfm-geo-artist')),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -57,5 +58,15 @@ class LastFmTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Pink Floyd', $result->name);
 
         $this->assertFalse(self::$service->getArtist()->find('This artist could not exist!'));
+    }
+
+    public function testTopArtistGeo()
+    {
+        $result = self::$service->geo->topArtists('au');
+
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertTrue(count($result) > 0);
+        $this->assertInstanceOf(Artist::class, $result[0]);
+
     }
 }
