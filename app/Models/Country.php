@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Exceptions\InvalidParamException;
+
 class Country
 {
     const DATA_FILE = 'resources/data/countries.json';
     /**
      * Raw country data
      *
-     * @todo move this into persistant data store
+     * @todo move this into persistent data store
      * @todo provide full list of countries
      * @var array
      */
@@ -16,6 +18,11 @@ class Country
 
     private $attributes = [];
 
+    /**
+     * Country constructor.
+     *
+     * @param null|array $attributes
+     */
     public function __construct($attributes = null)
     {
         if (is_array($attributes)) {
@@ -24,18 +31,23 @@ class Country
     }
 
     /**
-     * [__get description]
-     * @param  [type] $key [description]
-     * @return [type]      [description]
+     * Access attributes as properties
+     *
+     * @param  string $key
+     * @return mixed
+     * @throws InvalidParamException
      */
     public function __get($key)
     {
         if (array_key_exists($key, $this->attributes)) {
             return $this->attributes[$key];
         }
-        throw new \App\Exceptions\InvalidParamException(sprintf("Unknown property %s", $key));
+        throw new InvalidParamException(sprintf("Unknown property %s", $key));
     }
 
+    /**
+     * @return Country[]
+     */
     public static function all()
     {
         $result = [];
@@ -46,7 +58,8 @@ class Country
     }
 
     /**
-     * [findById description]
+     * Find a specific country by its ISO id
+     *
      * @param  string $ref country identifier
      * @return Country|null
      */
