@@ -56,6 +56,11 @@ class LastFmTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Artist::class, $result);
         $this->assertEquals('Pink Floyd', $result->name);
 
+        $this->assertSame(
+            'https://lastfm-img2.akamaized.net/i/u/64s/a6ab3e76448f421e99c1f16d6d41e624.png',
+            $result->image(Artist::IMAGE_SIZE_MEDIUM)
+        );
+
         $this->assertFalse(self::$service->getArtist()->find('This artist could not exist!'));
     }
 }
