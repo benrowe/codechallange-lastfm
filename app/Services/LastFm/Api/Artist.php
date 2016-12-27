@@ -37,17 +37,13 @@ class Artist implements Searchable
     /**
      * Find the artist by their id
      *
-     * @param string $id either the musicbrainz id or the artist name
+     * @param string $artistRef either the musicbrainz id or the artist name
      * @return ArtistResponse|bool false when no artist found
      * @throws Exception
      */
-    public function find($id)
+    public function find($artistRef)
     {
-        if ((new Musicbrainz())->isValidId($id)) {
-            $params = ['mbid' => $id];
-        } else {
-            $params = ['artist' => $id];
-        }
+        $params = $this->buildArtistParams($artistRef);
 
         try {
             $response = $this->client->request('artist.getInfo', $params);
