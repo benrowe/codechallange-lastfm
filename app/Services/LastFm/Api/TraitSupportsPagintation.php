@@ -35,6 +35,38 @@ trait TraitSupportsPagintation
         $params = $this->buildPaginationParams($params);
         $response = $this->client->request($methodName, $params);
 
+        /**
+         * !important
+         * see method note below
+         */
+        $response = $this->fixLastFmPaginationBug($response, $key);
+
         return AbstractResponse::makeResultSet($this->client, $response, $type, $key);
+    }
+
+    /**
+     * Note: LastFM's pagination mechanism is very broken! Requesting a limit & page does
+     * not reply with the expected result, thus the following is a client side fix to ensure the result set is
+     * correct.
+     * The problem is the limit is ignored, and the result includes previous pages!
+     * If they ever fix this problem, this 'hack' should not effect the result set
+     *
+     * @param $key
+     * @return mixed
+     */
+    private function fixLastFmPaginationBug($response, $key)
+    {
+        $data = array_pull($response, $key);
+        if (count($data) > $this->client->getOption('pagination.limit', 5)) {
+            $data = array_slice($data, $this->client->getOption('pagination.limit', 5) * -1);
+        }
+
+        array_set(
+            $response,
+            $key,
+            $data
+        );
+
+        return $response;
     }
 }
