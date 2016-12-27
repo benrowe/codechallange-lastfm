@@ -15,7 +15,7 @@ try {
 
 $app = new Container(new DiContainer(), realpath(__DIR__.'/../'));
 
-//region application services
+//region low level application services
 $app->add('request', function () {
     return Symfony\Component\HttpFoundation\Request::createFromGlobals();
 });
@@ -27,6 +27,7 @@ $app->share('config', function() use ($app) {
 $app->share('view', function () use ($app) {
     return new Blade($app->get('config')->get('view.path'), $app->get('config')->get('view.cache'));
 });
+//endregion
 
     return new \Config\Repository(new \Config\Loader\FileLoader(__DIR__.'/config'), getenv('APP_ENV'));
 });
