@@ -12,6 +12,7 @@ use App\Services\LastFm\Contracts\Searchable;
 use App\Services\LastFm\Exception;
 use App\Services\LastFm\Response\AbstractResponse;
 use App\Services\LastFm\Response\Artist as ArtistResponse;
+use App\Services\LastFm\Response\Track;
 use App\Services\LastFm\SearchRequest;
 use App\Services\LastFm\Support\Musicbrainz;
 
@@ -55,6 +56,29 @@ class Artist implements Searchable
             }
             throw $e;
         }
+    }
+
+    public function topTracks($artistRef)
+    {
+        $params = $this->buildArtistParams($artistRef);
+        try {
+            $response = $this->client->request(
+                'artist.gettoptracks',
+                $params
+            );
+        } catch (Exception $e) {
+            if ($e->getCode() == 6) {
+                return false;
+            }
+            throw $e;
+        }
+
+        return AbstractResponse::makeResultSet(
+            $this->client,
+            $response,
+            Track::class,
+            'toptracks.track'
+        );
     }
 
     /**

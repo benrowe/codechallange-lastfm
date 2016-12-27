@@ -5,6 +5,7 @@ namespace Tests\Services\LastFm;
 use App\Services\LastFm\Client as LastFmClient;
 use App\Services\LastFm\Contracts\ResultSet;
 use App\Services\LastFm\Response\Artist;
+use App\Services\LastFm\Response\Track;
 use App\Services\LastFm\SearchRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -32,6 +33,8 @@ class LastFmTest extends PHPUnit_Framework_TestCase
             new Response(200, [], file_get_contents(__DIR__.'/../../mocks/lastfm-search-artist')),
             new Response(200, [], file_get_contents(__DIR__.'/../../mocks/lastfm-artist')),
             new Response(200, [], file_get_contents(__DIR__.'/../../mocks/lastfm-error')),
+            new Response(200, [], file_get_contents(__DIR__.'/../../mocks/lastfm-geo-artist')),
+            new Response(200, [], file_get_contents(__DIR__.'/../../mocks/lastfm-artist-toptracks')),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -72,5 +75,14 @@ class LastFmTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(count($result) > 0);
         $this->assertInstanceOf(Artist::class, $result[0]);
 
+    }
+
+    public function testTopArtistTracks()
+    {
+        $pinkFloydId = '83d91898-7763-47d7-b03b-b92132375c47';
+        $result = self::$service->artist->topTracks($pinkFloydId);
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertTrue(count($result) > 0);
+        $this->assertInstanceOf(Track::class, $result[0]);
     }
 }
