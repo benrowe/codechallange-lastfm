@@ -19,7 +19,7 @@ $app = new Container(new DiContainer(), realpath(__DIR__.'/../'));
 $app->add('request', function () {
     return Symfony\Component\HttpFoundation\Request::createFromGlobals();
 });
-$app->share('response', \Symfony\Component\HttpFoundation\Response::class);;
+$app->share('response', \Symfony\Component\HttpFoundation\Response::class);
 $app->share('emitter', Zend\Diactoros\Response\SapiEmitter::class);
 
 $app->share('config', function () use ($app) {
