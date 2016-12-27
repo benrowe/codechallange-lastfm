@@ -26,8 +26,8 @@ class Artist extends AbstractResponse
         return null;
     }
 
-    public function topTracks():ResultSet
+    public function topTracks($limit = 10):ResultSet
     {
-        return $this->client->artist->topTracks($this->mbid);
+        return $this->client->artist->topTracks($this->mbid, ['limit' => $limit]);
     }
 }
