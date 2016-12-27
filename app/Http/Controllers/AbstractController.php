@@ -64,6 +64,7 @@ abstract class AbstractController
      * @param string $method
      * @param array $params
      * @return string|array|ResponseInterface
+     * @todo Invoke action through container for DI in controller::action*()
      */
     public static function __callStatic($method, $params)
     {
