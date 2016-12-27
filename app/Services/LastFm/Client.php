@@ -4,6 +4,7 @@ namespace App\Services\LastFm;
 
 use App\Exceptions\InvalidParamException;
 use App\Services\LastFm\Api\Artist;
+use App\Services\LastFm\Api\Geo;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\ClientInterface;
 
@@ -12,7 +13,9 @@ use GuzzleHttp\ClientInterface;
  * Initial entry point for making requests to LastFM
  *
  * @package App\Services\LastFm
- * @property Artist $artist
+ * @property Artist artist
+ * @property Geo geo
+ * @todo create unique Exception class for these errors
  */
 class Client
 {
@@ -50,6 +53,16 @@ class Client
     public function getArtist(): Artist
     {
         return new Artist($this);
+    }
+
+    /**
+     * Get the geo api
+     *
+     * @return Geo
+     */
+    public function getGeo(): Geo
+    {
+        return new Geo($this);
     }
 
     /**
@@ -94,14 +107,14 @@ class Client
         // handle invalid/error responses
         if ($bodyDecode === null) {
             throw new Exception("The response from LastFM can not be decoded as valid JSON");
-        } else {
-            if (isset($bodyDecode['error'])) {
-                throw new Exception(
-                    sprintf("LastFM error: %s (%s)", $bodyDecode['message'], $bodyDecode['error']),
-                    $bodyDecode['error']
-                );
-            }
         }
+        if (isset($bodyDecode['error'])) {
+            throw new Exception(
+                sprintf("LastFM error: %s (%s)", $bodyDecode['message'], $bodyDecode['error']),
+                $bodyDecode['error']
+            );
+        }
+
 
         return $bodyDecode;
     }

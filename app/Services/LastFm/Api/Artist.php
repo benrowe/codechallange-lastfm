@@ -12,9 +12,15 @@ use App\Services\LastFm\Contracts\Searchable;
 use App\Services\LastFm\Exception;
 use App\Services\LastFm\Response\AbstractResponse;
 use App\Services\LastFm\Response\Artist as ArtistResponse;
+use App\Services\LastFm\Response\Track;
 use App\Services\LastFm\SearchRequest;
 use App\Services\LastFm\Support\Musicbrainz;
 
+/**
+ * Artist API
+ *
+ * @package App\Services\LastFm\Api
+ */
 class Artist implements Searchable
 {
     /**
@@ -22,36 +28,58 @@ class Artist implements Searchable
      */
     private $client;
 
+    /**
+     * Artist constructor.
+     *
+     * @param Client $client
+     */
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
-    public function search(SearchRequest $request): ResultSet
+    /**
+     * Search last fm for artists based on the provided SearchRequest criteria
+     *
+     * @param SearchRequest $request
+     * @param array         $params
+     * @return ResultSet
+     */
+    public function search(SearchRequest $request, array $params = []): ResultSet
     {
-        $response = $this->client->request('artist.search', $request->toArray());
+        $params   = array_merge($params, $request->toArray());
+        $response = $this->client->request(
+            'artist.search',
+            $params
+        );
 
-        return AbstractResponse::makeResultSet($this->client, $response, ArtistResponse::class, 'results.artistmatches.artist');
+        return AbstractResponse::makeResultSet(
+            $this->client,
+            $response,
+            ArtistResponse::class,
+            'results.artistmatches.artist'
+        );
     }
 
     /**
      * Find the artist by their id
      *
-     * @param string $id either the musicbrainz id or the artist name
+     * @param string $artistRef either the musicbrainz id or the artist name
      * @return ArtistResponse|bool false when no artist found
      * @throws Exception
      */
-    public function find($id)
+    public function find($artistRef)
     {
-        if ((new Musicbrainz())->isValidId($id)) {
-            $params = ['mbid' => $id];
-        } else {
-            $params = ['artist' => $id];
-        }
+        $params = $this->buildArtistParams($artistRef);
 
         try {
             $response = $this->client->request('artist.getInfo', $params);
-            return AbstractResponse::make($this->client, $response, ArtistResponse::class, 'artist');
+            return AbstractResponse::make(
+                $this->client,
+                $response,
+                ArtistResponse::class,
+                'artist'
+            );
         } catch (Exception $e) {
             if ($e->getCode() == 6) {
                 // artist not found
@@ -59,5 +87,52 @@ class Artist implements Searchable
             }
             throw $e;
         }
+    }
+
+    /**
+     * Get top tracks for specified artist
+     *
+     * @param string $artistRef either the musicbrainz id or the artist name
+     * @param array $params additional api params
+     * @return \App\Services\LastFm\Response\ResultSet|bool
+     * @throws Exception
+     */
+    public function topTracks($artistRef, array $params = [])
+    {
+        $params = $this->buildArtistParams($artistRef);
+        $params = array_merge($params, $params);
+        try {
+            $response = $this->client->request(
+                'artist.gettoptracks',
+                $params
+            );
+        } catch (Exception $e) {
+            if ($e->getCode() == 6) {
+                return false;
+            }
+            throw $e;
+        }
+
+        return AbstractResponse::makeResultSet(
+            $this->client,
+            $response,
+            Track::class,
+            'toptracks.track'
+        );
+    }
+
+    /**
+     * Build the arist api params based on the type of data being provided
+     *
+     * @param string $artistRef
+     * @return array
+     */
+    private function buildArtistParams($artistRef): array
+    {
+        if ((new Musicbrainz())->isValidId($artistRef)) {
+            return ['mbid' => $artistRef];
+        }
+
+        return ['artist' => $artistRef];
     }
 }
