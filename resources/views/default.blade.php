@@ -1,5 +1,7 @@
 @extends('layouts.default')
 
+@section('title', 'Top artists per country')
+
 @section('content')
 @if ($results)
     <h1>Top Artists Per Country: {{ $model->country()->name }}</h1>
