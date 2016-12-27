@@ -4,6 +4,7 @@ namespace App\Support;
 
 use App\Exceptions\InvalidCallException;
 use League\Container\Container as DiContainer;
+use League\Container\Definition\DefinitionInterface;
 use League\Container\ReflectionContainer;
 use League\Route\RouteCollection;
 use Psr\Http\Message\ResponseInterface;
@@ -17,6 +18,10 @@ use Symfony\Component\HttpFoundation\Response;
  * Registers services and routes request
  *
  * @package App\Support
+ * @method mixed get(string $alias, array $args)
+ * @method bool has(string $alias)
+ * @method DefinitionInterface add(string $alias, mixed|null $concrete, boolean $share)
+ * @method DefinitionInterface share(string $alias, mixed|null $conrete)
  */
 class Container
 {
