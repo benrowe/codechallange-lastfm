@@ -58,12 +58,18 @@ abstract class AbstractResponse
     public static function makeResultSet(Client $client, $response, $type, $key):ResultSet
     {
         self::verifyResponseType($type);
-        $response = \App\array_get($response, $key);
+        $responseData = \App\array_get($response, $key);
         $data = [];
-        foreach ($response as $item) {
+        foreach ($responseData as $item) {
             $data[] = new $type($item, $client);
         }
-        return new ResultSet($data, $client);
+        list($key) = explode('.', $key);
+        return new ResultSet(
+            $data,
+            $client,
+            \App\array_get($response, $key.'.@attr.page'),
+            \App\array_get($response, $key.'.@attr.totalPages')
+        );
     }
 
     /**

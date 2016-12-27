@@ -8,6 +8,7 @@ use App\Services\LastFm\Contracts\ResultSet as ResultSetContract;
 /**
  * Class ResultSet
  * Basic collection for the result set from lastfm calls (artists, tracks, etc)
+ * This result set should be treated as immutable
  *
  * @package App\Services\LastFm\Response
  */
@@ -16,12 +17,27 @@ class ResultSet implements ResultSetContract
     private $data;
     private $client;
 
+    private $page;
+    private $totalPages;
+
     private $position = 0;
 
-    public function __construct(array $data, Client $client)
+    public function __construct(array $data, Client $client, $page = 1, $totalPages = null)
     {
         $this->data = $data;
         $this->client = $client;
+        $this->page = $page;
+        $this->totalPages = $totalPages;
+    }
+
+    public function currentPage()
+    {
+        return $this->page;
+    }
+
+    public function totalPages()
+    {
+        return $this->totalPages;
     }
 
     /**

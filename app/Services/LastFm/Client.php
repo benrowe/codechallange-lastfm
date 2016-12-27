@@ -76,6 +76,15 @@ class Client
         return $this->apiOptions;
     }
 
+    public function getOption($key, $default = null)
+    {
+        $value = \App\array_get($this->apiOptions, $key);
+        if ($value) {
+            return $value;
+        }
+        return $default;
+    }
+
     /**
      * Get the artist api
      *

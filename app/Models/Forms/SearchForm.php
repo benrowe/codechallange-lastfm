@@ -23,13 +23,14 @@ class SearchForm extends AbstractModel
     /**
      * Calculate the result set based on the current state of the object
      *
+     * @param int $page
      * @return ResultSet
      */
-    public function results()
+    public function results($page = 1)
     {
         $client  = $this->getLastFmApi();
 
-        return $client->geo->topArtists($this->country()->name);
+        return $client->geo->topArtists($this->country()->name, ['page' => $page]);
     }
 
     /**

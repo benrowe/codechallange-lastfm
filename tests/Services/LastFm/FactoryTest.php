@@ -20,5 +20,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertSame('12345', $client->getApiKey());
         $this->assertArrayHasKey('pagination', $client->getOptions());
+        $this->assertSame(100, $client->getOption('pagination.limit'));
     }
 }
