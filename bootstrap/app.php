@@ -31,7 +31,6 @@ $app->share('view', function () use ($app) {
 });
 //endregion
 
-    return new \Config\Repository(new \Config\Loader\FileLoader(__DIR__.'/config'), getenv('APP_ENV'));
 });
 //endregion
 
