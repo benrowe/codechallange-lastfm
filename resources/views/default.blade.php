@@ -13,7 +13,7 @@
                 </li>
             @endforeach
         </ol>
-        @include('partials.pagination', ['resultSet' => $results])
+        @include('partials.pagination', ['resultSet' => $results, 'url' => '?SearchForm%5Bcountry%5D='.$model->country.'&'])
     @else
         Please select a country
     @endif
