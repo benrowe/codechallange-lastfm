@@ -63,4 +63,14 @@ class LastFmTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse(self::$service->getArtist()->find('This artist could not exist!'));
     }
+
+    public function testTopArtistGeo()
+    {
+        $result = self::$service->geo->topArtists('au');
+
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertTrue(count($result) > 0);
+        $this->assertInstanceOf(Artist::class, $result[0]);
+
+    }
 }
