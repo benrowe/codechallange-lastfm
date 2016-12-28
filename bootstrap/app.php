@@ -46,7 +46,7 @@ $app->share('cache', function () use ($app) {
 });
 
 $app->add('lastfm', function () use ($app) {
-    return \App\Services\LastFm\Factory::fromConfig($app->get('config')->get('lastfm'));
+    return \App\Services\LastFm\Factory::fromConfigWithCaching($app->get('config')->get('lastfm'), $app->get('cache'));
 });
 //endregion
 
