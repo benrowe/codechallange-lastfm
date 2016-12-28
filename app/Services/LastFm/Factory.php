@@ -6,6 +6,9 @@
 
 namespace App\Services\LastFm;
 
+use App\Support\LastFmClientCache;
+use Doctrine\Common\Cache\CacheProvider;
+
 class Factory
 {
     /**
@@ -16,9 +19,35 @@ class Factory
      */
     public static function fromConfig(array $config): Client
     {
+        return self::make(Client::class, $config);
+    }
+
+    /**
+     * Make an instance of the lastfm api client that supports request caching
+     *
+     * @param array         $config
+     * @param CacheProvider $cache
+     * @return Client
+     */
+    public static function fromConfigWithCaching(array $config, CacheProvider $cache): Client
+    {
+        $client = self::make(LastFmClientCache::class, $config);
+        $client->setCacheProvider($cache);
+
+        return $client;
+    }
+
+    /**
+     * Make an instance of the lastfm client, using the specified type and configuration values
+     * @param $class
+     * @param $config
+     * @return Client
+     */
+    private static function make($class, $config): Client
+    {
         $key = array_pull($config, 'api_key');
         $secret = array_pull($config, 'api_secret');
 
-        return new Client($key, $secret, $config);
+        return new $class($key, $secret, $config);
     }
 }
