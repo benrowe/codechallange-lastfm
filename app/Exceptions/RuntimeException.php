@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use RuntimeExceptionas Exception;
+use RuntimeException as Exception;
 
 /**
  * RuntimeException
