@@ -16,9 +16,20 @@ class Factory
      */
     public static function fromConfig(array $config): Client
     {
+        return self::make(Client::class, $config);
+    }
+
+    /**
+     * Make an instance of the lastfm client, using the specified type and configuration values
+     * @param $class
+     * @param $config
+     * @return mixed
+     */
+    private static function make($class, $config)
+    {
         $key = array_pull($config, 'api_key');
         $secret = array_pull($config, 'api_secret');
 
-        return new Client($key, $secret, $config);
+        return new $class($key, $secret, $config);
     }
 }
