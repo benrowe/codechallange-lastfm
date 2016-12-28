@@ -74,5 +74,4 @@ class LastFmClientCache extends Client
     {
         return self::CACHE_KEY_PREFIX . md5(serialize([$methodName, $params]));
     }
-
 }
