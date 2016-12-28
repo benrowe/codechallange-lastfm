@@ -41,9 +41,9 @@ class Factory
      * Make an instance of the lastfm client, using the specified type and configuration values
      * @param $class
      * @param $config
-     * @return mixed
+     * @return Client
      */
-    private static function make($class, $config)
+    private static function make($class, $config): Client
     {
         $key = array_pull($config, 'api_key');
         $secret = array_pull($config, 'api_secret');
