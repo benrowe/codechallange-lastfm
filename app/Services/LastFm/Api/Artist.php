@@ -65,7 +65,7 @@ class Artist implements Searchable
      * Find the artist by their id
      *
      * @param string $artistRef either the musicbrainz id or the artist name
-     * @return ArtistResponse|bool false when no artist found
+     * @return AbstractResponse|bool false when no artist found
      * @throws Exception
      */
     public function find($artistRef)
@@ -122,7 +122,7 @@ class Artist implements Searchable
     }
 
     /**
-     * Build the arist api params based on the type of data being provided
+     * Build the artist api params based on the type of data being provided
      *
      * @param string $artistRef
      * @return array

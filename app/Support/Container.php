@@ -18,10 +18,10 @@ use Symfony\Component\HttpFoundation\Response;
  * Registers services and routes request
  *
  * @package App\Support
- * @method mixed get(string $alias, array $args)
+ * @method mixed get(string $alias, array $args = [])
  * @method bool has(string $alias)
- * @method DefinitionInterface add(string $alias, mixed|null $concrete, boolean $share)
- * @method DefinitionInterface share(string $alias, mixed|null $conrete)
+ * @method DefinitionInterface add(string $alias, mixed | null $concrete, boolean $share)
+ * @method DefinitionInterface share(string $alias, mixed | null $concrete)
  */
 class Container
 {
@@ -154,7 +154,7 @@ class Container
      * @param RouteCollection $route
      * @return ResponseInterface
      */
-    private function dispatchRoute($route):ResponseInterface
+    private function dispatchRoute($route): ResponseInterface
     {
         $psr7 = new DiactorosFactory();
 

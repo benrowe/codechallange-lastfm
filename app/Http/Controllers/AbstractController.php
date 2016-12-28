@@ -83,7 +83,7 @@ abstract class AbstractController
      *
      * @param string $path
      * @param array  $params
-     * @return \Psr\Http\Message\StreamInterface
+     * @return ResponseInterface
      */
     protected function view($path, array $params = [])
     {
