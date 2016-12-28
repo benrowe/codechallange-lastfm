@@ -54,7 +54,7 @@ trait TraitSupportsPagintation
      * @param $key
      * @return mixed
      */
-    private function fixLastFmPaginationBug($response, $key)
+    private function fixLastFmPaginationBug(array $response, $key): array
     {
         $data = array_pull($response, $key);
         if (count($data) > $this->client->getOption('pagination.limit', 5)) {

@@ -3,7 +3,7 @@
 namespace App\Services\LastFm\Api;
 
 use App\Services\LastFm\Client;
-use App\Services\LastFm\Response\AbstractResponse;
+use App\Services\LastFm\Contracts\ResultSet;
 use App\Services\LastFm\Response\Artist as ArtistResponse;
 
 /**

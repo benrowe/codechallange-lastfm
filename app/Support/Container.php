@@ -55,7 +55,7 @@ class Container
             new ReflectionContainer
         );
         $this->dependency = $di;
-        $this->pathRoot = rtrim($path, '/').'/';
+        $this->pathRoot   = rtrim($path, '/') . '/';
 
         self::$instance = $this;
     }
@@ -133,6 +133,7 @@ class Container
         if (!($response instanceof ResponseInterface)) {
             throw new \RuntimeException("Route response is unsupported");
         }
+
         return $response;
     }
 
@@ -145,7 +146,7 @@ class Container
         $route = new RouteCollection($this->dependency);
 
         // load the
-        require $this->pathRoot.$path;
+        require $this->pathRoot . $path;
 
         return $route;
     }

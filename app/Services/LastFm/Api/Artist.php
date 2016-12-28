@@ -99,8 +99,7 @@ class Artist implements Searchable
      */
     public function topTracks($artistRef, array $params = [])
     {
-        $params = $this->buildArtistParams($artistRef);
-        $params = array_merge($params, $params);
+        $params = array_merge($params, $this->buildArtistParams($artistRef));
         try {
             $response = $this->client->request(
                 'artist.gettoptracks',
