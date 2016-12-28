@@ -1,6 +1,8 @@
 <?php
 
+use App\Exceptions\RuntimeException;
 use App\Support\Container;
+use Doctrine\Common\Cache\FilesystemCache;
 use League\Container\Container as DiContainer;
 use Philo\Blade\Blade;
 
@@ -32,6 +34,17 @@ $app->share('view', function () use ($app) {
 //endregion
 
 //region general application services
+$app->share('cache', function () use ($app) {
+    $config = $app->get('config');
+    switch ($config->get('cache.driver')) {
+        case 'file':
+            return new FilesystemCache($config->get('cache.drivers.file.path'));
+            break;
+        default:
+            throw new RuntimeException(sprintf('Cache engine %s is not supported by the application', $config->get('cache.engine')));
+    }
+});
+
 $app->add('lastfm', function () use ($app) {
     return \App\Services\LastFm\Factory::fromConfig($app->get('config')->get('lastfm'));
 });
