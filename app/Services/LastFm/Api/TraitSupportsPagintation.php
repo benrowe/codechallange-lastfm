@@ -51,8 +51,9 @@ trait TraitSupportsPagintation
      * The problem is the limit is ignored, and the result includes previous pages!
      * If they ever fix this problem, this 'hack' should not effect the result set
      *
-     * @param $key
-     * @return mixed
+     * @param array $response
+     * @param string $key
+     * @return array
      */
     private function fixLastFmPaginationBug(array $response, $key): array
     {
