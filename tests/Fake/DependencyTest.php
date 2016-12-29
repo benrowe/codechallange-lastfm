@@ -13,7 +13,7 @@ class DependencyTest
     /**
      * DependencyTest constructor.
      *
-     * @param SimpleClass $object
+     * @param Simple $object
      */
     public function __construct(Simple $object)
     {

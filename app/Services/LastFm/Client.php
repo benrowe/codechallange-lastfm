@@ -76,6 +76,12 @@ class Client
         return $this->apiOptions;
     }
 
+    /**
+     * Get the custom option ba
+     * @param      $key
+     * @param null $default
+     * @return mixed|null
+     */
     public function getOption($key, $default = null)
     {
         $value = \App\array_get($this->apiOptions, $key);

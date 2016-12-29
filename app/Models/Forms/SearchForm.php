@@ -5,8 +5,12 @@ namespace App\Models\Forms;
 use App\Models\AbstractModel;
 use App\Models\Country;
 use App\Services\LastFm\Client;
+use App\Services\LastFm\Contracts\ResultSet;
 
 /**
+ * SearchForm model
+ * Represents the state of the search form and allows a result set to be produced for the top artist
+ * as per the attributes
  *
  * @property Country country
  * @package App\Models
@@ -37,7 +41,7 @@ class SearchForm extends AbstractModel
      * Check the state of the SearchForm model to determine if a search could
      * return possible results
      *
-     * @return boolean [description]
+     * @return boolean
      */
     public function isSearchable()
     {
