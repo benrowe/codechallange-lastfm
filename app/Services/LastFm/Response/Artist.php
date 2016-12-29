@@ -2,6 +2,13 @@
 
 namespace App\Services\LastFm\Response;
 
+/**
+ * Class Artist
+ *
+ * @package App\Services\LastFm\Response
+ * @property array $image
+ * @property array $mbid
+ */
 class Artist extends AbstractResponse
 {
     const IMAGE_SIZE_SMALL = 'small';

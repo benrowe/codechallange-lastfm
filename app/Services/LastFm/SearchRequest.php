@@ -34,6 +34,13 @@ class SearchRequest implements ArrayAccess
         return array_key_exists($key, $this->data);
     }
 
+    /**
+     * Get the search request param
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed|null
+     */
     public function get($key, $default = null)
     {
         if ($this->has($key)) {

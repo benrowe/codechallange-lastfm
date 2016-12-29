@@ -64,6 +64,7 @@ abstract class AbstractController
      * @param string $method
      * @param array $params
      * @return string|array|ResponseInterface
+     * @todo Invoke action through container for DI in controller::action*()
      */
     public static function __callStatic($method, $params)
     {
@@ -82,7 +83,7 @@ abstract class AbstractController
      *
      * @param string $path
      * @param array  $params
-     * @return \Psr\Http\Message\StreamInterface
+     * @return ResponseInterface
      */
     protected function view($path, array $params = [])
     {

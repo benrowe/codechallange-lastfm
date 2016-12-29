@@ -12,6 +12,12 @@ abstract class AbstractModel
 {
     protected $attributes = [];
 
+    /**
+     * AbstractModel constructor.
+     * Initialise the concrete model with the supplied attributes
+     *
+     * @param null $attributes
+     */
     public function __construct($attributes = null)
     {
         if (is_array($attributes)) {
@@ -19,6 +25,12 @@ abstract class AbstractModel
         }
     }
 
+    /**
+     * Fill the model with the array of attributes, in addition to any existing attribute values
+     * Any existing values which matching keys will be overridden.
+     *
+     * @param array $attributes
+     */
     public function fill(array $attributes)
     {
         $this->attributes = array_merge($this->attributes, $attributes);

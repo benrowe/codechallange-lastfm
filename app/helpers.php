@@ -13,7 +13,7 @@ use App\Support\Container;
 /**
  * Get a value out of the provided array using dot-notation
  *
- * @param array $data
+ * @param array  $data
  * @param string $path
  * @return mixed|null
  */
@@ -32,7 +32,7 @@ function array_get(&$data, $path)
 
 /**
  * Retrieve an instance of the application Container
- * 
+ *
  * @return Container
  */
 function app()
@@ -49,8 +49,9 @@ function app()
 function path($relPath = null)
 {
     $path = app()->root();
-    if ($relPath) {
+    if ($relPath !== null) {
         $path .= trim($relPath, ' /');
     }
+
     return $path;
 }

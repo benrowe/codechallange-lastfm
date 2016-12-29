@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Models\Forms\SearchForm;
 
+
 /**
  * Class DefaultController
  *
@@ -26,7 +27,7 @@ class DefaultController extends AbstractController
         return $this->view('default', [
             'countries' => Country::all(),
             'model' => $searchForm,
-            'results' => $searchForm->isSearchable() ? $searchForm->results() : null,
+            'results' => $searchForm->isSearchable() ? $searchForm->results($this->getRequestParam('page', 1)) : null,
         ]);
     }
 }

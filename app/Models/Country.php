@@ -4,9 +4,15 @@ namespace App\Models;
 
 use App\Exceptions\InvalidParamException;
 
+/**
+ * Country
+ *
+ * @package App\Models
+ */
 class Country
 {
     const DATA_FILE = 'resources/data/countries.json';
+
     /**
      * Raw country data
      *

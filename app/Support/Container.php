@@ -4,6 +4,7 @@ namespace App\Support;
 
 use App\Exceptions\InvalidCallException;
 use League\Container\Container as DiContainer;
+use League\Container\Definition\DefinitionInterface;
 use League\Container\ReflectionContainer;
 use League\Route\RouteCollection;
 use Psr\Http\Message\ResponseInterface;
@@ -17,6 +18,10 @@ use Symfony\Component\HttpFoundation\Response;
  * Registers services and routes request
  *
  * @package App\Support
+ * @method mixed get(string $alias, array $args = [])
+ * @method bool has(string $alias)
+ * @method DefinitionInterface add(string $alias, mixed | null $concrete, boolean $share)
+ * @method DefinitionInterface share(string $alias, mixed | null $concrete)
  */
 class Container
 {
@@ -50,7 +55,7 @@ class Container
             new ReflectionContainer
         );
         $this->dependency = $di;
-        $this->pathRoot = rtrim($path, '/').'/';
+        $this->pathRoot   = rtrim($path, '/') . '/';
 
         self::$instance = $this;
     }
@@ -72,7 +77,7 @@ class Container
      */
     public function root()
     {
-       return $this->pathRoot;
+        return $this->pathRoot;
     }
 
     /**
@@ -128,6 +133,7 @@ class Container
         if (!($response instanceof ResponseInterface)) {
             throw new \RuntimeException("Route response is unsupported");
         }
+
         return $response;
     }
 
@@ -140,7 +146,7 @@ class Container
         $route = new RouteCollection($this->dependency);
 
         // load the
-        require $this->pathRoot.$path;
+        require $this->pathRoot . $path;
 
         return $route;
     }
@@ -149,7 +155,7 @@ class Container
      * @param RouteCollection $route
      * @return ResponseInterface
      */
-    private function dispatchRoute($route):ResponseInterface
+    private function dispatchRoute($route): ResponseInterface
     {
         $psr7 = new DiactorosFactory();
 
